@@ -77,15 +77,13 @@ int main()
                 cout << "Menambah gedung" << endl;
                 cout << "1. Menambah Gedung"<<endl;
                 cout << "2. Menambah Rute"<<endl;
-
+                cout << "Pilih : "
                 cin >> input;
                 if(input == 1){
                     cout << "Masukkan nama gedung yang ingin ditambahkan: ";
                     cin >> lokasiMulai;
                     addVertex(G, lokasiMulai);
-                }
-                if(input == 2){
-
+                } else if(input == 2){
                     cout << "Masukkan nama gedung asal: ";
                     cin >> lokasiMulai;
                     cout << "Masukkan nama gedung tujuan: ";
@@ -96,7 +94,6 @@ int main()
                     cin >> waktu;
                     cout << "Masukkan jarak (dalam km): ";
                     cin >> jarak;
-
                     addEdge(G, lokasiMulai, lokasiAkhir, jalan, waktu, jarak);
                 }
             case 0:
