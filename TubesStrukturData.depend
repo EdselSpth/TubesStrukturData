@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1734784202 source:c:\users\edsel septa haryanto\documents\tubesstrukturdata\main.cpp
+	<iostream>
+	"tubes.h"
+
+1734784912 source:c:\users\edsel septa haryanto\documents\tubesstrukturdata\tubes.cpp
+	<iostream>
+	"tubes.h"
+
+1734784574 c:\users\edsel septa haryanto\documents\tubesstrukturdata\tubes.h
+	<iostream>
+
