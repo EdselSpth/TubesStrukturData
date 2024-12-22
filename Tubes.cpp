@@ -278,66 +278,6 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
 
 }
 
-void findMostFrequentIntersection(graph G) {
-    if (firstVertex(G) == NULL) {
-        cout << "Graf kosong! Tidak ada persimpangan untuk dianalisis." << endl;
-        return;
-    }
-
-    // Inisialisasi array untuk menyimpan nama tempat dan frekuensi
-    string namaTempat[100]; 
-    int frekuensi[100] = {0}; 
-    int jumlahTempat = 0;
-
-    // Iterasi melalui semua vertex untuk mencatat nama tempat
-    adrVertex V = firstVertex(G);
-    while (V != NULL) {
-        // Tambahkan nama tempat ke array
-        namaTempat[jumlahTempat] = namaTempat(V);
-        jumlahTempat++;
-
-        V = nextVertex(V);
-    }
-
-    // Iterasi melalui semua edge untuk menghitung frekuensi
-    V = firstVertex(G);
-    while (V != NULL) {
-        adrEdge E = firstEdge(V);
-        while (E != NULL) {
-            // Tambahkan frekuensi untuk lokasi awal
-            for (int i = 0; i < jumlahTempat; i++) {
-                if (namaTempat[i] == namaTempat(V)) {
-                    frekuensi[i]++;
-                }
-            }
-
-            // Tambahkan frekuensi untuk lokasi tujuan
-            for (int i = 0; i < jumlahTempat; i++) {
-                if (namaTempat[i] == lokasiTujuan(E)) {
-                    frekuensi[i]++;
-                }
-            }
-
-            E = nextEdge(E);
-        }
-        V = nextVertex(V);
-    }
-
-    // Cari tempat dengan frekuensi tertinggi
-    int maxFrekuensi = 0;
-    string tempatTerbanyak = "";
-    for (int i = 0; i < jumlahTempat; i++) {
-        if (frekuensi[i] > maxFrekuensi) {
-            maxFrekuensi = frekuensi[i];
-            tempatTerbanyak = namaTempat[i];
-        }
-    }
-
-    // Cetak hasil
-    cout << "Tempat atau persimpangan yang paling sering dilewati adalah: " << tempatTerbanyak << endl;
-    cout << "Frekuensi: " << maxFrekuensi << " kali." << endl;
-}
-
 void deleteEdge(graph &G, string lokasi) {
     adrVertex V = findVertex(G, lokasi);
     if (V == NULL) {
@@ -423,10 +363,10 @@ void printGraph(graph G) {
             cout << "\tTidak ada jalan yang menghubungkan ke tempat lain." << endl;
         } else {
             while (E != NULL) {
-                cout << "\tTujuan: " << lokasiTujuan(E)
-                     << " ,Jalan: " << namaJalan(E)
-                     << " ,Waktu: " << waktuTempuh(E)
-                     << " menit ,Jarak: " << jarak(E) << " Km" << endl;
+                cout << "\t -> " << lokasiTujuan(E)
+                     << ", Jalan: " << namaJalan(E)
+                     << ", Waktu: " << waktuTempuh(E)
+                     << " menit, Jarak: " << jarak(E) << " Km" << endl;
                 E = nextEdge(E);
             }
         }
@@ -444,9 +384,8 @@ void menu(){
     cout << "(2) Cari Semua Rute Menuju Gedung" << endl;
     cout << "(3) Cari Rute Terpendek Menuju Gedung" << endl;
     cout << "(4) Menginfokan Gedung Maintanance" << endl;
-    cout << "(5) Mencari Gedung Maintenance atau Nonaktif" << endl;
-    cout << "(6) Tambah Gedung" << endl;
-    cout << "(7) Tempat atau Persimpangan Teramai";
+    cout << "(5) Tambah Gedung atau jalan" << endl;
+    cout << "(6) Lokasi atau persimpangan teramai" << endl;
     cout << "(0) Keluar" << endl;
     cout << "Pilih menu: ";
 }
@@ -465,12 +404,14 @@ void nama_kelompok(){
 
 //Under Developing
 void allRouteToBuilding(graph G, string startPoint, string endPoint) {
-    // Array untuk menyimpan jalur sementara
-    string rute[100]; // Asumsikan maksimal panjang jalur adalah 100
+    // Function Mencari Semua Rute dari lokasi A ke Lokasi B
+    string rute[100];
     int index = 0;
 
     adrVertex cariAwalan = findVertex(G, startPoint);
     adrVertex cariAkhir = findVertex(G, endPoint);
+    int totalJarak = 0;
+    int totalWaktu = 0;
 
     if (cariAwalan == NULL && cariAkhir == NULL){
         cout << "Lokasi awal dan lokasi akhir yang anda masukkan tidak ditemukan" << endl;
@@ -479,16 +420,13 @@ void allRouteToBuilding(graph G, string startPoint, string endPoint) {
     } else if (cariAwalan != NULL && cariAkhir == NULL){
         cout << "Lokasi akhir yang anda masukkan tidak di temukan" << endl;
     } else {
-        findRoutes(G, startPoint, endPoint, rute, index);
+        findRoutes(G, startPoint, endPoint, rute, index, totalJarak, totalWaktu);
     }
 }
 
-void findRoutes(graph G, string awal, string akhir, string rute[], int &index) {
-    // fungsi rekursif untuk mencari semua rute
-    rute[index] = awal;
-    index++;
-
-    // Jika gedung tujuan ditemukan, cetak rute
+void findRoutes(graph G, string awal, string akhir, string rute[], int &index, int totalJarak, int totalWaktu) {
+    // Mencari Rute dengan algoritma dfs (mencari dulu sebuah jalur mendalam baru kembali)
+    rute[index++] = awal;
     if (awal == akhir) {
         for (int i = 0; i < index; i++) {
             cout << rute[i];
@@ -496,34 +434,75 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index) {
                 cout << " -> ";
             }
         }
-        cout << endl;
+        cout << " | Total Jarak: " << totalJarak << " km, Total Waktu: " << totalWaktu << " menit" << endl;
     } else {
-        // Rekursif untuk semua edge yang keluar dari current
-        adrVertex currentVertex = findVertex(G, awal);
-        if (currentVertex != NULL) {
-            adrEdge edge = firstEdge(currentVertex);
-            while (edge != NULL) {
-                string next = lokasiTujuan(edge);
-
-                // Cek apakah sudah ada di jalur untuk menghindari siklus
+        adrVertex posisiSekarang = findVertex(G, awal);
+        if (posisiSekarang != NULL) {
+            for (adrEdge edge = firstEdge(posisiSekarang); edge != NULL; edge = nextEdge(edge)) {
                 bool alreadyInPath = false;
                 for (int i = 0; i < index; i++) {
-                    if (rute[i] == next) {
+                    if (rute[i] == lokasiTujuan(edge)) {
                         alreadyInPath = true;
-                        break;
                     }
                 }
-
-                // Jika belum ada di jalur, lanjutkan pencarian
                 if (!alreadyInPath) {
-                    findRoutes(G, next, akhir, rute, index);
+                    findRoutes(G, lokasiTujuan(edge), akhir, rute, index, totalJarak + jarak(edge), totalWaktu + waktuTempuh(edge));
                 }
-
-                edge = nextEdge(edge);
             }
         }
     }
-
-    // Backtracking: hapus current dari path
     index--;
 }
+
+void findMostFrequentIntersection(graph G) {
+    if (firstVertex(G) == NULL) {
+        cout << "Graf kosong! Tidak ada persimpangan!!." << endl;
+        return;
+    }
+    // Inisialisasi array untuk menyimpan nama tempat dan frekuensi
+    string namaTempat[100];
+    int frekuensi[100] = {0};
+    int jumlahTempat = 0;
+    // Iterasi melalui semua vertex untuk mencatat nama tempat
+    adrVertex V = firstVertex(G);
+    while (V != NULL) {
+        // Tambahkan nama tempat ke array
+        namaTempat[jumlahTempat] = namaTempat(V);
+        jumlahTempat++;
+        V = nextVertex(V);
+    }
+    // Iterasi melalui semua edge untuk menghitung frekuensi
+    V = firstVertex(G);
+    while (V != NULL) {
+        adrEdge E = firstEdge(V);
+        while (E != NULL) {
+            // Tambahkan frekuensi untuk lokasi awal
+            for (int i = 0; i < jumlahTempat; i++) {
+                if (namaTempat[i] == namaTempat(V)) {
+                    frekuensi[i]++;
+                }
+            }
+            // Tambahkan frekuensi untuk lokasi tujuan
+            for (int i = 0; i < jumlahTempat; i++) {
+                if (namaTempat[i] == lokasiTujuan(E)) {
+                    frekuensi[i]++;
+                }
+            }
+            E = nextEdge(E);
+        }
+        V = nextVertex(V);
+    }
+    // Cari tempat dengan frekuensi tertinggi
+    int maxFrekuensi = 0;
+    string tempatTerbanyak = "";
+    for (int i = 0; i < jumlahTempat; i++) {
+        if (frekuensi[i] > maxFrekuensi) {
+            maxFrekuensi = frekuensi[i];
+            tempatTerbanyak = namaTempat[i];
+        }
+    }
+    // Cetak hasil
+    cout << "Tempat atau persimpangan yang paling sering dilewati adalah: " << tempatTerbanyak << endl;
+    cout << "Frekuensi: " << maxFrekuensi << " kali." << endl;
+}
+
