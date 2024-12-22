@@ -32,7 +32,7 @@ int main()
                 header();
                 cout << "Menu 2" << endl;
                 cout << "Cari Semua Rute" << endl;
-                cout << "Masukkan Nama Lokasi Awal :" ;
+                cout << "Masukkan Nama Lokasi Awal : " ;
                 cin >> lokasiMulai;
                 cout << "Masukkan Nama Lokasi Tujuan : ";
                 cin >> lokasiAkhir;
@@ -42,7 +42,7 @@ int main()
                 header();
                 cout << "Menu 3" << endl;
                 cout << "Mencari Rute Terpendek" << endl;
-                cout << "Masukkan Nama Lokasi Awal :" ;
+                cout << "Masukkan Nama Lokasi Awal : " ;
                 cin >> lokasiMulai;
                 cout << "Masukkan Nama Lokasi Tujuan : ";
                 cin >> lokasiAkhir;
@@ -63,16 +63,14 @@ int main()
             case 4:
                 header();
                 cout << "Menu 4" << endl;
-                cout << "Menginformasikan gedung Maintenance atau nonaktif" << endl;
+                cout << "Menginformasikan gedung/lokasi Maintenance" << endl;
 
-                cout << "Masukkan nama gedung yang ingin dihapus: ";
+                cout << "Masukkan nama lokasi yang ingin dihapus: ";
                 cin >> deletedLokasi;
                 deleteVertex(G, deletedLokasi);
+                break;
             case 5:
                 header();
-                cout << "Menu 6" << endl;
-                cout << "Menginformasikan gedung Maintenance atau nonaktif" << endl;
-            case 6:
                 cout << "Menu 5" << endl;
                 cout << "Menambah gedung" << endl;
                 cout << "1. Menambah Gedung"<<endl;
@@ -80,13 +78,14 @@ int main()
                 cout << "Pilih : ";
                 cin >> input;
                 if(input == 1){
-                    cout << "Masukkan nama gedung yang ingin ditambahkan: ";
+                    cout << "Masukkan nama lokasi yang ingin ditambahkan: ";
                     cin >> lokasiMulai;
                     addVertex(G, lokasiMulai);
+                    cout << "Lokasi berhasil ditambahkan!!" << endl;
                 } else if(input == 2){
-                    cout << "Masukkan nama gedung asal: ";
+                    cout << "Masukkan nama lokasi asal: ";
                     cin >> lokasiMulai;
-                    cout << "Masukkan nama gedung tujuan: ";
+                    cout << "Masukkan nama lokasi tujuan: ";
                     cin >> lokasiAkhir;
                     cout << "Masukkan nama jalan: ";
                     cin >> jalan;
@@ -96,16 +95,20 @@ int main()
                     cin >> jarak;
                     addEdge(G, lokasiMulai, lokasiAkhir, jalan, waktu, jarak);
                 }
-            case 7:
-                cout << "Persimpangan atau tempat terramai dikunjungi:";
+                break;
+            case 6:
+                header();
+                cout << "Menu 6" << endl;
                 findMostFrequentIntersection(G);
                 break;
             case 0:
-                cout << "Keluar" << endl;
+                header();
+                cout << "Terima Kasih sudah Menggunakan Aplikasi Kami" << endl;
+                header();
                 break;
             default:
                 cout << "Pilihan tidak Valid" << endl;
+                break;
         }
     }
-    return 0; 
 }
