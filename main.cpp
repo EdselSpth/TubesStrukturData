@@ -77,7 +77,7 @@ int main()
                 cout << "Menambah gedung" << endl;
                 cout << "1. Menambah Gedung"<<endl;
                 cout << "2. Menambah Rute"<<endl;
-                cout << "Pilih : "
+                cout << "Pilih : ";
                 cin >> input;
                 if(input == 1){
                     cout << "Masukkan nama gedung yang ingin ditambahkan: ";
@@ -96,6 +96,10 @@ int main()
                     cin >> jarak;
                     addEdge(G, lokasiMulai, lokasiAkhir, jalan, waktu, jarak);
                 }
+            case 7:
+                cout << "Persimpangan atau tempat terramai dikunjungi:";
+                findMostFrequentIntersection(G);
+                break;
             case 0:
                 cout << "Keluar" << endl;
                 break;
@@ -103,4 +107,5 @@ int main()
                 cout << "Pilihan tidak Valid" << endl;
         }
     }
+    return 0; 
 }

@@ -48,6 +48,7 @@ void findShortRoute(graph G, string startPoint, string endPoint);
 void printGraph(graph G);
 void deleteEdge(graph &G, string lokasi);
 void deleteVertex(graph &G, string lokasi);
+void findMostFrequentIntersection(graph G);
 
 void menu ();
 void header();

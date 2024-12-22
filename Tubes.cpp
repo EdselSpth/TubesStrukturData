@@ -278,6 +278,66 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
 
 }
 
+void findMostFrequentIntersection(graph G) {
+    if (firstVertex(G) == NULL) {
+        cout << "Graf kosong! Tidak ada persimpangan untuk dianalisis." << endl;
+        return;
+    }
+
+    // Inisialisasi array untuk menyimpan nama tempat dan frekuensi
+    string namaTempat[100]; 
+    int frekuensi[100] = {0}; 
+    int jumlahTempat = 0;
+
+    // Iterasi melalui semua vertex untuk mencatat nama tempat
+    adrVertex V = firstVertex(G);
+    while (V != NULL) {
+        // Tambahkan nama tempat ke array
+        namaTempat[jumlahTempat] = namaTempat(V);
+        jumlahTempat++;
+
+        V = nextVertex(V);
+    }
+
+    // Iterasi melalui semua edge untuk menghitung frekuensi
+    V = firstVertex(G);
+    while (V != NULL) {
+        adrEdge E = firstEdge(V);
+        while (E != NULL) {
+            // Tambahkan frekuensi untuk lokasi awal
+            for (int i = 0; i < jumlahTempat; i++) {
+                if (namaTempat[i] == namaTempat(V)) {
+                    frekuensi[i]++;
+                }
+            }
+
+            // Tambahkan frekuensi untuk lokasi tujuan
+            for (int i = 0; i < jumlahTempat; i++) {
+                if (namaTempat[i] == lokasiTujuan(E)) {
+                    frekuensi[i]++;
+                }
+            }
+
+            E = nextEdge(E);
+        }
+        V = nextVertex(V);
+    }
+
+    // Cari tempat dengan frekuensi tertinggi
+    int maxFrekuensi = 0;
+    string tempatTerbanyak = "";
+    for (int i = 0; i < jumlahTempat; i++) {
+        if (frekuensi[i] > maxFrekuensi) {
+            maxFrekuensi = frekuensi[i];
+            tempatTerbanyak = namaTempat[i];
+        }
+    }
+
+    // Cetak hasil
+    cout << "Tempat atau persimpangan yang paling sering dilewati adalah: " << tempatTerbanyak << endl;
+    cout << "Frekuensi: " << maxFrekuensi << " kali." << endl;
+}
+
 void deleteEdge(graph &G, string lokasi) {
     adrVertex V = findVertex(G, lokasi);
     if (V == NULL) {
@@ -386,6 +446,7 @@ void menu(){
     cout << "(4) Menginfokan Gedung Maintanance" << endl;
     cout << "(5) Mencari Gedung Maintenance atau Nonaktif" << endl;
     cout << "(6) Tambah Gedung" << endl;
+    cout << "(7) Tempat atau Persimpangan Teramai";
     cout << "(0) Keluar" << endl;
     cout << "Pilih menu: ";
 }
