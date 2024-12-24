@@ -57,5 +57,5 @@ void nama_kelompok();
 
 //Under Developing
 void allRouteToBuilding(graph G, string startPoint, string endPoint);
-void findRoutes(graph G, string awal, string akhir, string rute[], int &index);
+void findRoutes(graph G, string awal, string akhir, string rute[], int &index, int totalJarak, int totalWaktu);
 #endif // TUBES_H_INCLUDED
