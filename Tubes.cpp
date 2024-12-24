@@ -120,7 +120,7 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
     adrVertex target = findVertex(G, endPoint);
 
     if (start == NULL || target == NULL) {
-        cout << "Gedung tidak ditemukan!" << endl;
+        cout << "Lokasi tidak ditemukan!" << endl;
         return;
     }
 
@@ -285,8 +285,8 @@ void findMostFrequentIntersection(graph G) {
     }
 
     // Inisialisasi array untuk menyimpan nama tempat dan frekuensi
-    string namaTempat[100]; 
-    int frekuensi[100] = {0}; 
+    string namaTempat[100];
+    int frekuensi[100] = {0};
     int jumlahTempat = 0;
 
     // Iterasi melalui semua vertex untuk mencatat nama tempat
@@ -405,7 +405,7 @@ void deleteVertex(graph &G, string gedung) {
 
     // Hapus node vertex itu sendiri
     delete V;
-    cout << "Vertex " << gedung << " berhasil dihapus!" << endl;
+    cout << "Lokasi " << gedung << " berhasil dihapus!" << endl;
 }
 
 void printGraph(graph G) {
@@ -441,12 +441,12 @@ void menu(){
     // menu program
     cout << "Menu Utama" << endl;
     cout << "(1) Print Seluruh Graph" << endl;
-    cout << "(2) Cari Semua Rute Menuju Gedung" << endl;
-    cout << "(3) Cari Rute Terpendek Menuju Gedung" << endl;
-    cout << "(4) Menginfokan Gedung Maintanance" << endl;
-    cout << "(5) Mencari Gedung Maintenance atau Nonaktif" << endl;
-    cout << "(6) Tambah Gedung" << endl;
-    cout << "(7) Tempat atau Persimpangan Teramai";
+    cout << "(2) Cari Semua Rute Menuju Lokasi" << endl;
+    cout << "(3) Cari Rute Terpendek Menuju Lokasi" << endl;
+    cout << "(4) Menginfokan Lokasi Maintanance" << endl;
+    cout << "(5) Mencari Lokasi Maintenance atau Nonaktif" << endl;
+    cout << "(6) Tambah Lokasi dan Rute" << endl;
+    cout << "(7) Tempat atau Persimpangan Teramai"<<endl;
     cout << "(0) Keluar" << endl;
     cout << "Pilih menu: ";
 }
