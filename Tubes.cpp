@@ -426,9 +426,8 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
 
 
 void findMostVisitedLocation(graph G) {
-    // Mencari lokasi yang paling mudah diakses lokasi lain (tetangga lokasi)
     if (firstVertex(G) == NULL) {
-        cout << "Graf kosong! Tidak ada lokasi!!." << endl;
+        cout << "Graf kosong! Tidak ada lokasi yang terdaftar." << endl;
         return;
     }
 
@@ -471,6 +470,19 @@ void findMostVisitedLocation(graph G) {
             tempatTerbanyak = namaTempat[i];
         }
     }
-    cout << "Tempat yang dapat dijangkau langsung dari banyak lokasi adalah: " << tempatTerbanyak << endl;
+    cout << "Tempat yang dapat dijangkau langsung dari banyak lokasi adalah : " << tempatTerbanyak << endl;
     cout << "Jumlah tempat : " << maxFrekuensi/2 << " kali." << endl;
+    cout << "Lokasi-lokasi yang dapat mengakses ke " << tempatTerbanyak << " adalah: " << endl;
+    V = firstVertex(G);
+    while (V != NULL) {
+        adrEdge E = firstEdge(V);
+        while (E != NULL) {
+            if (lokasiTujuan(E) == tempatTerbanyak) {
+                cout << namaTempat(V) << "  ";
+            }
+            E = nextEdge(E);
+        }
+        V = nextVertex(V);
+    }
+    cout << endl;
 }
