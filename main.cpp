@@ -116,7 +116,12 @@ int main()
             case 6:
                 header();
                 cout << "Menu 6" << endl;
-                findMostVisitedLocation(G);
+                cout << "Lokasi yang Paling Mudah Diakses" << endl;
+                if (firstVertex(G) == NULL){
+                    cout << "Graf kosong, tidak ada lokasi yang terdaftar" << endl;
+                } else {
+                    findMostVisitedLocation(G);
+                }
                 break;
             case 0:
                 header();
