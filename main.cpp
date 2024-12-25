@@ -116,7 +116,7 @@ int main()
             case 6:
                 header();
                 cout << "Menu 6" << endl;
-                findMostFrequentIntersection(G);
+                findMostVisitedLocation(G);
                 break;
             case 0:
                 header();
