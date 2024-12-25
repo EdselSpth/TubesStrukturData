@@ -425,35 +425,32 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
 }
 
 
-void findMostFrequentIntersection(graph G) {
+void findMostLocationThatCanGotByOneRoad(graph G) {
     if (firstVertex(G) == NULL) {
-        cout << "Graf kosong! Lokasi tidak ada!!." << endl;
+        cout << "Graf kosong! Tidak ada lokasi!!." << endl;
         return;
     }
-    // Inisialisasi array untuk menyimpan nama tempat dan frekuensi
+
     string namaTempat[100];
     int frekuensi[100] = {0};
     int jumlahTempat = 0;
-    // Iterasi melalui semua vertex untuk mencatat nama tempat
+
     adrVertex V = firstVertex(G);
     while (V != NULL) {
-        // Tambahkan nama tempat ke array
         namaTempat[jumlahTempat] = namaTempat(V);
         jumlahTempat++;
         V = nextVertex(V);
     }
-    // Iterasi melalui semua edge untuk menghitung frekuensi
+
     V = firstVertex(G);
     while (V != NULL) {
         adrEdge E = firstEdge(V);
         while (E != NULL) {
-            // Tambahkan frekuensi untuk lokasi awal
             for (int i = 0; i < jumlahTempat; i++) {
                 if (namaTempat[i] == namaTempat(V)) {
                     frekuensi[i]++;
                 }
             }
-            // Tambahkan frekuensi untuk lokasi tujuan
             for (int i = 0; i < jumlahTempat; i++) {
                 if (namaTempat[i] == lokasiTujuan(E)) {
                     frekuensi[i]++;
@@ -463,7 +460,8 @@ void findMostFrequentIntersection(graph G) {
         }
         V = nextVertex(V);
     }
-    // Cari tempat dengan frekuensi tertinggi
+
+
     int maxFrekuensi = 0;
     string tempatTerbanyak = "";
     for (int i = 0; i < jumlahTempat; i++) {
@@ -472,8 +470,6 @@ void findMostFrequentIntersection(graph G) {
             tempatTerbanyak = namaTempat[i];
         }
     }
-    // Cetak hasil
-    cout << "Tempat atau persimpangan yang paling sering dilewati adalah: " << tempatTerbanyak << endl;
-    cout << "Frekuensi: " << maxFrekuensi << " kali." << endl;
+    cout << "Tempat yang dapat dijangkau langsung dari banyak lokasi adalah: " << tempatTerbanyak << endl;
+    cout << "Jumlah tempat : " << maxFrekuensi/2 << " kali." << endl;
 }
-
