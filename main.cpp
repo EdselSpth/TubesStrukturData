@@ -6,8 +6,8 @@ int main()
 {
     //Kamus Variabel
     int pilihan = 999, waktu = 0, jarak = 0, input = 999;
-    string lokasiMulai, lokasiAkhir, jalan, deletedLokasi;
-    adrVertex cariAwal, cariAkhir;
+    string lokasiMulai, lokasiAkhir, jalan, deletedLokasi, lokasi;
+    adrVertex cariAwal, cariAkhir, carilokasi;
 
     //Mulai Program
     graph G;
@@ -69,7 +69,7 @@ int main()
                 cin >> deletedLokasi;
                 deleteVertex(G, deletedLokasi);
                 break;
-            
+
             case 5:
                 cout << "Menu 5" << endl;
                 cout << "Menambah Lokasi" << endl;
