@@ -120,7 +120,7 @@ int main()
                 if (firstVertex(G) == NULL){
                     cout << "Graf kosong, tidak ada lokasi yang terdaftar" << endl;
                 } else {
-                    findMostVisitedLocation(G);
+                    findMostAccessibleLocation(G);
                 }
                 break;
             case 0:
