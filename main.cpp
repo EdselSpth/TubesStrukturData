@@ -93,7 +93,19 @@ int main()
                     cin >> waktu;
                     cout << "Masukkan jarak (dalam km): ";
                     cin >> jarak;
-                    addEdge(G, lokasiMulai, lokasiAkhir, jalan, waktu, jarak);
+                    adrVertex Awal = findVertex(G, lokasiMulai);
+                    adrVertex Akhir = findVertex(G, lokasiAkhir);
+                    if (Awal == NULL && Akhir == NULL){
+                    cout << "Lokasi awal dan lokasi akhir yang anda masukkan tidak ditemukan" << endl;
+                    } else if (Awal == NULL && Akhir != NULL){
+                    cout << "Lokasi awal yang anda masukkan tidak di temukan" << endl;
+                    } else if (Awal != NULL && Akhir == NULL){
+                    cout << "Lokasi akhir yang anda masukkan tidak di temukan" << endl;
+                    } else if (Awal == Akhir){
+                        cout << "Lokasi awal dan lokasi akhir tidak boleh sama" << endl;
+                    } else {
+                        addEdge(G, lokasiMulai, lokasiAkhir, jalan, waktu, jarak);
+                    }
                 }
                 break;
             case 6:
