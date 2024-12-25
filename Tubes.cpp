@@ -425,7 +425,7 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
 }
 
 
-void findMostAccessibleLocation (graph G) {
+void findMostAccessibleLocation(graph G) {
     //Menemukan lokasi paling mudah diakses oleh banyak lokasi
     if (firstVertex(G) == NULL) {
         cout << "Graf kosong! Tidak ada lokasi yang terdaftar." << endl;
