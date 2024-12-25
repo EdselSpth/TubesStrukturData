@@ -441,7 +441,7 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
 
 void findMostFrequentIntersection(graph G) {
     if (firstVertex(G) == NULL) {
-        cout << "Graf kosong! Tidak ada persimpangan!!." << endl;
+        cout << "Graf kosong! Lokasi tidak ada!!." << endl;
         return;
     }
     // Inisialisasi array untuk menyimpan nama tempat dan frekuensi
