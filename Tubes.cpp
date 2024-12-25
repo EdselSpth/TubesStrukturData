@@ -265,29 +265,26 @@ void deleteEdge(graph &G, string lokasi) {
 
     adrVertex P = firstVertex(G);
     while (P != NULL) {
-        if (P != V) {
-            adrEdge prev = NULL;
-            adrEdge tempEdge = firstEdge(P);
-            while (tempEdge != NULL) {
-                if (lokasiTujuan(tempEdge) == lokasi) {
-                    if (prev == NULL) {
-                        firstEdge(P) = nextEdge(tempEdge);
-                    } else {
-                        nextEdge(prev) = nextEdge(tempEdge);
-                    }
-                    adrEdge temp = tempEdge;
-                    tempEdge = nextEdge(tempEdge);
-                    nextEdge(temp) = NULL;
+        adrEdge prev = NULL;
+        adrEdge tempEdge = firstEdge(P);
+        while (tempEdge != NULL) {
+            if (lokasiTujuan(tempEdge) == lokasi) {
+                if (prev == NULL) {
+                    firstEdge(P) = nextEdge(tempEdge);
                 } else {
-                    prev = tempEdge;
-                    tempEdge = nextEdge(tempEdge);
+                    nextEdge(prev) = nextEdge(tempEdge);
                 }
+                adrEdge temp = tempEdge;
+                tempEdge = nextEdge(tempEdge);
+                nextEdge(temp) = NULL;
+            } else {
+                prev = tempEdge;
+                tempEdge = nextEdge(tempEdge);
             }
         }
         P = nextVertex(P);
     }
 }
-
 
 void deleteVertex(graph &G, string lokasi) {
     adrVertex V = findVertex(G, lokasi);
