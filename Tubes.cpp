@@ -351,7 +351,7 @@ void deleteVertex(graph &G, string lokasi) {
 void printGraph(graph G) {
     adrVertex V = firstVertex(G);
     if (V == NULL) {
-        cout << "Tidak ada Gedung!!" << endl;
+        cout << "Tidak ada Lokasi!!" << endl;
         return;
     }
 
