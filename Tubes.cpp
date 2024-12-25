@@ -314,18 +314,13 @@ void deleteVertex(graph &G, string lokasi) {
     } else {
         adrVertex prev = NULL;
         adrVertex temp = firstVertex(G);
-        while (temp != NULL) {
-            if (temp == V) {
-                if (prev != NULL) {
-                    nextVertex(prev) = nextVertex(temp);
-                }
-                nextVertex(temp) = temp;
-
-                temp = NULL;
-            } else {
-                prev = temp;
-                temp = nextVertex(temp);
-            }
+        while (temp != NULL && temp != V) {
+            prev = temp;
+            temp = nextVertex(temp);
+        }
+        if (prev != NULL) {
+            nextVertex(prev) = nextVertex(V);
+            nextVertex(V) = NULL;
         }
     }
     cout << "Lokasi " << lokasi << " berhasil dihapus!" << endl;
