@@ -423,7 +423,8 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
     } else {
         adrVertex posisiSekarang = findVertex(G, awal);
         if (posisiSekarang != NULL) {
-            for (adrEdge edge = firstEdge(posisiSekarang); edge != NULL; edge = nextEdge(edge)) {
+            adrEdge edge = firstEdge(posisiSekarang);
+            while (edge != NULL){
                 bool alreadyInPath = false;
                 for (int i = 0; i < index; i++) {
                     if (rute[i] == lokasiTujuan(edge)) {
@@ -433,11 +434,13 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
                 if (!alreadyInPath) {
                     findRoutes(G, lokasiTujuan(edge), akhir, rute, index, totalJarak + jarak(edge), totalWaktu + waktuTempuh(edge));
                 }
+                edge = nextEdge(edge);
             }
         }
     }
     index--;
 }
+
 
 void findMostFrequentIntersection(graph G) {
     if (firstVertex(G) == NULL) {
