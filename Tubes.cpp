@@ -317,15 +317,15 @@ void deleteEdge(graph &G, string lokasi) {
     }
 }
 
-void deleteVertex(graph &G, string gedung) {
-    adrVertex V = findVertex(G, gedung);
+void deleteVertex(graph &G, string lokasi) {
+    adrVertex V = findVertex(G, lokasi);
     if (V == NULL) {
-        cout << "Vertex " << gedung << " tidak ditemukan!" << endl;
+        cout << "Vertex " << lokasi << " tidak ditemukan!" << endl;
         return;
     }
 
     // Hapus semua edge yang mengarah ke dan dari vertex tersebut
-    deleteEdge(G, gedung);
+    deleteEdge(G, lokasi);
 
     // Hapus vertex dari daftar vertex
     if (firstVertex(G) == V) {
@@ -345,7 +345,7 @@ void deleteVertex(graph &G, string gedung) {
 
     // Hapus node vertex itu sendiri
     delete V;
-    cout << "Lokasi " << gedung << " berhasil dihapus!" << endl;
+    cout << "Lokasi " << lokasi << " berhasil dihapus!" << endl;
 }
 
 void printGraph(graph G) {
