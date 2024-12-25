@@ -79,9 +79,14 @@ int main()
                 cin >> input;
                 if(input == 1){
                     cout << "Masukkan nama lokasi yang ingin ditambahkan: ";
-                    cin >> lokasiMulai;
-                    addVertex(G, lokasiMulai);
-                    cout << "Lokasi berhasil ditambahkan!!" << endl;
+                    cin >> lokasi;
+                    carilokasi = findVertex(G, lokasi);
+                    if (carilokasi != NULL){
+                        cout << "Lokasi sudah terdaftar, harap masukkan lokasi yang belum terdaftar" << endl;
+                    } else {
+                        addVertex(G, lokasi);
+                        cout << "Lokasi berhasil ditambahkan!!" << endl;
+                    }
                 } else if(input == 2){
                     cout << "Masukkan nama lokasi asal: ";
                     cin >> lokasiMulai;
