@@ -425,7 +425,8 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
 }
 
 
-void findMostLocationThatCanGotByOneRoad(graph G) {
+void findMostVisitedLocation(graph G) {
+    // Mencari lokasi yang paling mudah diakses lokasi lain (tetangga lokasi)
     if (firstVertex(G) == NULL) {
         cout << "Graf kosong! Tidak ada lokasi!!." << endl;
         return;
