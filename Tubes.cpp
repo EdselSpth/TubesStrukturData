@@ -116,7 +116,6 @@ void buildGraph(graph &G){
 }
 
 void findShortRoute(graph G, string startPoint, string endPoint) {
-
     adrVertex start = findVertex(G, startPoint);
     adrVertex target = findVertex(G, endPoint);
 
@@ -125,16 +124,14 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
         return;
     }
 
-
     string vertices[100];
     int distances[100];
     int times[100];
     string previous[100];
     bool visited[100];
-    bool allVisited = false;
     int vertexCount = 0;
 
-    //set nilai jarak dan waktu ke 9999
+    // Inisialisasi array vertices dengan semua vertex di graf
     adrVertex V = firstVertex(G);
     while (V != NULL) {
         vertices[vertexCount] = namaTempat(V);
@@ -146,29 +143,26 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
         vertexCount++;
     }
 
-
+    // Validasi apakah startPoint ada di vertices
     int startIndex = -1;
-    int i = 0;
-    while (i < vertexCount && startIndex == -1) {
+    for (int i = 0; i < vertexCount; i++) {
         if (vertices[i] == startPoint) {
             startIndex = i;
-            distances[i] = 0;
-            times[i] = 0;
+            distances[i] = 0;  // Inisialisasi jarak awal
+            times[i] = 0;      // Inisialisasi waktu awal
+            break;
         }
-        i++;
     }
-
-
     if (startIndex == -1) {
         cout << "Lokasi awal tidak ditemukan!" << endl;
         return;
     }
 
-    // Proses utama algoritma
+    // Algoritma Dijkstra
     for (int i = 0; i < vertexCount; i++) {
-
         int minDistance = 9999;
         int currentIndex = -1;
+
         for (int j = 0; j < vertexCount; j++) {
             if (!visited[j] && distances[j] < minDistance) {
                 minDistance = distances[j];
@@ -176,72 +170,63 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
             }
         }
 
-
-        if (currentIndex == -1) {
-            allVisited = true;
-        }
+        if (currentIndex == -1) break;  // Semua vertex telah dikunjungi
         visited[currentIndex] = true;
 
-        // Perbarui jarak dan waktu untuk tetangga-tetangga
         adrVertex currentVertex = findVertex(G, vertices[currentIndex]);
         adrEdge edge = firstEdge(currentVertex);
 
         while (edge != NULL) {
-            // Cari indeks tetangga
             int neighborIndex = -1;
-            int j = 0;
-            while (j < vertexCount && neighborIndex == -1) {
+            for (int j = 0; j < vertexCount; j++) {
                 if (vertices[j] == lokasiTujuan(edge)) {
                     neighborIndex = j;
+                    break;
                 }
-                j++;
             }
 
-            // Perbarui jarak dan waktu jika menemukan rute lebih pendek
             if (neighborIndex != -1 && distances[currentIndex] + jarak(edge) < distances[neighborIndex]) {
                 distances[neighborIndex] = distances[currentIndex] + jarak(edge);
                 times[neighborIndex] = times[currentIndex] + waktuTempuh(edge);
                 previous[neighborIndex] = vertices[currentIndex];
             }
-
             edge = nextEdge(edge);
         }
     }
 
-    // Membangun rute terpendek
+    // Bangun rute terpendek
     int endIndex = -1;
-    int k = 0;
-    while (k < vertexCount && endIndex == -1) {
-        if (vertices[k] == endPoint) {
-            endIndex = k;
+    for (int i = 0; i < vertexCount; i++) {
+        if (vertices[i] == endPoint) {
+            endIndex = i;
+            break;
         }
-        k++;
     }
-
     if (endIndex == -1 || distances[endIndex] == 9999) {
         cout << "Tidak ada rute dari " << startPoint << " ke " << endPoint << endl;
         return;
     }
 
+    // Rekonstruksi rute
     string path[100];
     int pathIndex = 0;
     int currentIndex = endIndex;
 
-    while (currentIndex != -1 && vertices[currentIndex] != "") {
+    while (currentIndex != -1) {
         path[pathIndex] = vertices[currentIndex];
         pathIndex++;
 
         string prev = previous[currentIndex];
         currentIndex = -1;
-        int i = 0;
-        while (i < vertexCount && currentIndex == -1) {
+        for (int i = 0; i < vertexCount; i++) {
             if (vertices[i] == prev) {
                 currentIndex = i;
+                break;
             }
-            i++;
         }
     }
-    // Tampilkan rute terpendek
+
+    // Cetak rute
     cout << "Rute terpendek dari " << startPoint << " ke " << endPoint << ": " << endl;
     for (int i = pathIndex - 1; i >= 0; i--) {
         cout << path[i];
@@ -249,10 +234,10 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
     }
     cout << endl;
 
-
     cout << "Total jarak: " << distances[endIndex] << " km" << endl;
     cout << "Total waktu: " << times[endIndex] << " menit" << endl;
 }
+
 
 void deleteEdge(graph &G, string lokasi) {
     adrVertex V = findVertex(G, lokasi);
@@ -422,7 +407,6 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
     }
     index--;
 }
-
 
 void findMostAccessibleLocation(graph G) {
     //Menemukan lokasi paling mudah diakses oleh banyak lokasi
