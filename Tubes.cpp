@@ -198,12 +198,14 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
 
     // Bangun rute terpendek
     int endIndex = -1;
-    for (int i = 0; i < vertexCount; i++) {
+    int i = 0;
+    while (i < vertexCount && endIndex == -1) {
         if (vertices[i] == endPoint) {
             endIndex = i;
-            break;
         }
+        i++;
     }
+
     if (endIndex == -1 || distances[endIndex] == 9999) {
         cout << "Tidak ada rute dari " << startPoint << " ke " << endPoint << endl;
         return;
@@ -220,12 +222,14 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
 
         string prev = previous[currentIndex];
         currentIndex = -1;
-        for (int i = 0; i < vertexCount; i++) {
+        int i = 0;
+        while (i < vertexCount && currentIndex == -1) {
             if (vertices[i] == prev) {
                 currentIndex = i;
-                break;
             }
+            i++;
         }
+
     }
 
     // Cetak rute
