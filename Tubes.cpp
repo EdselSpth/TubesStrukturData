@@ -354,7 +354,6 @@ void nama_kelompok(){
     cout << "                   Muhammad Fauzan | 103022300065" << endl;
 }
 
-//Under Developing
 void allRouteToBuilding(graph G, string startPoint, string endPoint) {
     // Function Mencari Semua Rute dari lokasi A ke Lokasi B
     string rute[100];
