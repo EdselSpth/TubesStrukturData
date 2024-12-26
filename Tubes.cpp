@@ -349,10 +349,9 @@ void menu(){
     cout << "(1) Print Seluruh Graph" << endl;
     cout << "(2) Cari Semua Rute Menuju Lokasi" << endl;
     cout << "(3) Cari Rute Terpendek Menuju Lokasi" << endl;
-    cout << "(4) Menginfokan Lokasi Maintanance" << endl;
-  
+    cout << "(4) Menginfokan Lokasi Tidak Tersedia" << endl;
     cout << "(5) Tambah Lokasi atau jalan" << endl;
-    cout << "(6) Lokasi atau persimpangan teramai" << endl;
+    cout << "(6) Lokasi paling mudah diakses" << endl;
     cout << "(0) Keluar" << endl;
     cout << "Pilih menu: ";
 }
