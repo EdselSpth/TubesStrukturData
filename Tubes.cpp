@@ -163,6 +163,7 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
         int minDistance = 9999;
         int currentIndex = -1;
 
+    
         for (int j = 0; j < vertexCount; j++) {
             if (!visited[j] && distances[j] < minDistance) {
                 minDistance = distances[j];
@@ -170,12 +171,19 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
             }
         }
 
-        if (currentIndex == -1) break;  // Semua vertex telah dikunjungi
+      
+        if (currentIndex == -1) {
+            i = vertexCount; 
+            continue;
+        }
+
         visited[currentIndex] = true;
 
+       
         adrVertex currentVertex = findVertex(G, vertices[currentIndex]);
         adrEdge edge = firstEdge(currentVertex);
 
+        // Iterasi melalui edge dan update jarak
         while (edge != NULL) {
             int neighborIndex = -1;
             int j = 0;
@@ -192,9 +200,11 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
                 times[neighborIndex] = times[currentIndex] + waktuTempuh(edge);
                 previous[neighborIndex] = vertices[currentIndex];
             }
+
             edge = nextEdge(edge);
         }
     }
+
 
     // Bangun rute terpendek
     int endIndex = -1;
