@@ -94,7 +94,7 @@ int main()
                 cout << "Menu 5" << endl;
                 cout << "Menambah Lokasi" << endl;
                 cout << "1. Menambah Lokasi"<<endl;
-                cout << "2. Menambah Rute"<<endl;
+                cout << "2. Menambah Jalan"<<endl;
                 cout << "Pilih : ";
                 cin >> input;
                 if(input == 1){
@@ -104,6 +104,7 @@ int main()
                     if (carilokasi != NULL){
                         cout << "Lokasi sudah terdaftar, harap masukkan lokasi yang belum terdaftar" << endl;
                     } else {
+                        header();
                         addVertex(G, lokasi);
                         cout << "Lokasi berhasil ditambahkan!!" << endl;
                     }
@@ -129,7 +130,9 @@ int main()
                     } else if (Awal == Akhir){
                         cout << "Lokasi awal dan lokasi akhir tidak boleh sama" << endl;
                     } else {
-                        addEdge(G, lokasiMulai, lokasiAkhir, jalan, waktu, jarak);
+                        header();
+                        addEdge(G, lokasiMulai, lokasiAkhir, jalan, jarak, waktu);
+                        cout << "Jalan Berhasil Ditambahkan!!" << endl;
                     }
                 }
                 break;
@@ -149,6 +152,7 @@ int main()
                 header();
                 break;
             default:
+                header();
                 cout << "Pilihan tidak Valid" << endl;
                 break;
         }
