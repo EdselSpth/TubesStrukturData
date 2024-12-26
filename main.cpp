@@ -98,6 +98,7 @@ int main()
                 cout << "Pilih : ";
                 cin >> input;
                 if(input == 1){
+                    header();
                     cout << "Masukkan nama lokasi yang ingin ditambahkan: ";
                     cin >> lokasi;
                     carilokasi = findVertex(G, lokasi);
@@ -109,6 +110,7 @@ int main()
                         cout << "Lokasi berhasil ditambahkan!!" << endl;
                     }
                 } else if(input == 2){
+                    header();
                     cout << "Masukkan nama lokasi asal: ";
                     cin >> lokasiMulai;
                     cout << "Masukkan nama lokasi tujuan: ";
