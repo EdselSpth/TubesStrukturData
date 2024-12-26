@@ -37,7 +37,6 @@ int main()
                 cout << "Masukkan Nama Lokasi Tujuan : ";
                 cin >> lokasiAkhir;
                 header();
-                cout << "Semua Rute dari " << lokasiMulai << " ke " << lokasiAkhir << " adalah : " << endl;
                 allRouteToBuilding(G, lokasiMulai, lokasiAkhir);
                 break;
             case 3:
@@ -69,8 +68,7 @@ int main()
                 header();
                 cout << "Menu 4" << endl;
                 cout << "Menginformasikan gedung/lokasi Maintenance" << endl;
-
-                cout << "Masukkan nama lokasi yang ingin dihapus: ";
+                cout << "Masukkan nama lokasi yang tidak tersedia : ";
                 cin >> deletedLokasi;
                 header();
                 deleteVertex(G, deletedLokasi);
