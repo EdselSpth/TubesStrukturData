@@ -393,13 +393,13 @@ void findRoutes(graph G, string awal, string akhir, string rute[], int &index, i
         if (posisiSekarang != NULL) {
             adrEdge edge = firstEdge(posisiSekarang);
             while (edge != NULL){
-                bool alreadyInPath = false;
+                bool sudahdiRute = false;
                 for (int i = 0; i < index; i++) {
                     if (rute[i] == lokasiTujuan(edge)) {
-                        alreadyInPath = true;
+                        sudahdiRute = true;
                     }
                 }
-                if (!alreadyInPath) {
+                if (!sudahdiRute) {
                     findRoutes(G, lokasiTujuan(edge), akhir, rute, index, totalJarak + jarak(edge), totalWaktu + waktuTempuh(edge));
                 }
                 edge = nextEdge(edge);
