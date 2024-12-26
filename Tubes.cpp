@@ -56,16 +56,16 @@ adrVertex findVertex(graph G, string namaLokasi){
 }
 
 void addEdge(graph &G, string startPoint, string endPoint, string namaJalan, int jarak, int waktuTempuh){
-    // Mencari vertex yang sesuai
+    //menambahkan edge ke graph
     adrVertex V1 = findVertex(G, startPoint);
     adrVertex V2 = findVertex(G, endPoint);
 
-    // Pastikan vertex ditemukan
+    
     if (V1 != NULL && V2 != NULL) {
-        // Membuat edge untuk kedua arah
+
         adrEdge E = createEdge(startPoint, endPoint, namaJalan, jarak, waktuTempuh);
         adrEdge E_reverse = createEdge(endPoint, startPoint, namaJalan, jarak, waktuTempuh);
-        // Menambahkan edge untuk gedung awal
+        
         if (firstEdge(V1) == NULL) {
             firstEdge(V1) = E;
         } else {
@@ -76,7 +76,6 @@ void addEdge(graph &G, string startPoint, string endPoint, string namaJalan, int
             nextEdge(P) = E;
         }
 
-        // Menambahkan edge untuk gedung tujuan (biar grafnya dua arah)
         if (firstEdge(V2) == NULL) {
             firstEdge(V2) = E_reverse;
         } else {
@@ -145,13 +144,14 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
 
     // Validasi apakah startPoint ada di vertices
     int startIndex = -1;
-    for (int i = 0; i < vertexCount; i++) {
+    int i = 0;
+    while (i < vertexCount && startIndex == -1) {
         if (vertices[i] == startPoint) {
             startIndex = i;
-            distances[i] = 0;  // Inisialisasi jarak awal
-            times[i] = 0;      // Inisialisasi waktu awal
-            break;
+            distances[i] = 0;
+            times[i] = 0;
         }
+        i++;
     }
     if (startIndex == -1) {
         cout << "Lokasi awal tidak ditemukan!" << endl;
@@ -178,12 +178,14 @@ void findShortRoute(graph G, string startPoint, string endPoint) {
 
         while (edge != NULL) {
             int neighborIndex = -1;
-            for (int j = 0; j < vertexCount; j++) {
+            int j = 0;
+            while (j < vertexCount && neighborIndex == -1) {
                 if (vertices[j] == lokasiTujuan(edge)) {
                     neighborIndex = j;
-                    break;
                 }
+                j++;
             }
+
 
             if (neighborIndex != -1 && distances[currentIndex] + jarak(edge) < distances[neighborIndex]) {
                 distances[neighborIndex] = distances[currentIndex] + jarak(edge);
