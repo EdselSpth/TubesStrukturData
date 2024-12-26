@@ -43,7 +43,6 @@ void addEdge(graph &G, string startPoint, string endPoint, string namaJalan, int
 void buildGraph(graph &G);
 adrVertex findVertex(graph G, string namaLokasi);
 adrEdge findEdge(adrVertex V, string namaJalan, string namaLokasi);
-void allRouteToBuilding(graph G, string startPoint, string endPoint);
 void findShortRoute(graph G, string startPoint, string endPoint);
 void printGraph(graph G);
 void deleteEdge(graph &G, string lokasi);
