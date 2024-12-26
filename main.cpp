@@ -36,7 +36,23 @@ int main()
                 cin >> lokasiMulai;
                 cout << "Masukkan Nama Lokasi Tujuan : ";
                 cin >> lokasiAkhir;
-                allRouteToBuilding(G, lokasiMulai, lokasiAkhir);
+                cariAwal = findVertex(G, lokasiMulai);
+                cariAkhir = findVertex(G, lokasiAkhir);
+
+                if (cariAwal == NULL && cariAkhir == NULL){
+                    cout << "Lokasi awal dan lokasi akhir yang anda masukkan tidak ditemukan" << endl;
+                } else if (cariAwal == NULL && cariAkhir != NULL){
+                    cout << "Lokasi awal yang anda masukkan tidak di temukan" << endl;
+                } else if (cariAwal != NULL && cariAkhir == NULL){
+                    cout << "Lokasi akhir yang anda masukkan tidak di temukan" << endl;
+                } else if (lokasiMulai == lokasiAkhir){
+                    cout << "Lokasi awal dan lokasi akhir tidak boleh sama" << endl;
+                } else {
+                    header();
+                    cout << "Semua Rute dari " << lokasiMulai << " ke " << lokasiAkhir << " adalah : " << endl;
+                    allRouteToBuilding(G, lokasiMulai, lokasiAkhir);
+                }
+
                 break;
             case 3:
                 header();
@@ -56,7 +72,10 @@ int main()
                     cout << "Lokasi awal yang anda masukkan tidak di temukan" << endl;
                 } else if (cariAwal != NULL && cariAkhir == NULL){
                     cout << "Lokasi akhir yang anda masukkan tidak di temukan" << endl;
+                } else if (lokasiMulai == lokasiAkhir){
+                    cout << "Lokasi awal dan lokasi akhir tidak boleh sama" << endl;
                 } else {
+                    header();
                     findShortRoute(G, lokasiMulai, lokasiAkhir);
                 }
                 break;
@@ -67,6 +86,7 @@ int main()
 
                 cout << "Masukkan nama lokasi yang ingin dihapus: ";
                 cin >> deletedLokasi;
+                header();
                 deleteVertex(G, deletedLokasi);
                 break;
 
